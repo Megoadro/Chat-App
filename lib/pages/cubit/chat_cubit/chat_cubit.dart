@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(ChatInitialState());
+  List<Messege> messegeList = [];
   CollectionReference messeges =
       FirebaseFirestore.instance.collection(kMessegesCollections);
   void sendMessege({required String messege, required String email}) {
@@ -24,7 +25,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   void getMessege() {
     messeges.orderBy(kCreatedAt, descending: true).snapshots().listen((event) {
-      List<Messege> messegeList = [];
+      messegeList.clear();
       for (var doc in event.docs) {
         messegeList.add(Messege.fromjson(doc));
       }

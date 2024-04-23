@@ -9,21 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Chatpage extends StatelessWidget {
   final _controller = ScrollController();
-  List<Messege> messegeList = [];
+  //List<Messege> messegeList = [];
 
   TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var email = ModalRoute.of(context)!.settings.arguments;
-    // return StreamBuilder<QuerySnapshot>(
-    //     stream: messeges.orderBy(kCreatedAt, descending: true).snapshots(),
-    //     builder: (context, snapshot) {
-    //       if (snapshot.hasData) {
-    //         List<Messege> messegeList = [];
-    //         for (int i = 0; i < snapshot.data!.docs.length; i++) {
-    //           messegeList.add(Messege.fromjson(snapshot.data!.docs[i]));
-    //         }
+    var email = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -46,13 +38,9 @@ class Chatpage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: BlocConsumer<ChatCubit, ChatState>(
-              listener: (context, state) {
-                if(state is ChatSuccessState){
-                  messegeList = state.messeges;
-                }
-              },
+            child: BlocBuilder<ChatCubit, ChatState>(
               builder: (context, state) {
+                var messegeList = BlocProvider.of<ChatCubit>(context).messegeList;
                 return ListView.builder(
                   reverse: true,
                   controller: _controller,
@@ -73,6 +61,8 @@ class Chatpage extends StatelessWidget {
             child: TextField(
               controller: controller,
               onSubmitted: (data) {
+                BlocProvider.of<ChatCubit>(context)
+                    .sendMessege(messege: data, email: email);
                 controller.clear();
                 _controller.animateTo(
                   0,

@@ -1,5 +1,6 @@
 import 'package:cahtty/firebase_options.dart';
 import 'package:cahtty/pages/chat_page.dart';
+import 'package:cahtty/pages/cubit/chat_cubit/chat_cubit.dart';
 import 'package:cahtty/pages/cubit/login_cubit/login_cubit.dart';
 import 'package:cahtty/pages/cubit/register_cubit/register_cubit.dart';
 import 'package:cahtty/pages/login_page.dart';
@@ -28,6 +29,9 @@ class ChattyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ChatCubit(),
         ),
       ],
       child: MaterialApp(

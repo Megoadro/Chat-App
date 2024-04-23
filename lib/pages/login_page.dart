@@ -1,5 +1,6 @@
 import 'package:cahtty/constants.dart';
 import 'package:cahtty/helper/show_snak_bar.dart';
+import 'package:cahtty/pages/cubit/chat_cubit/chat_cubit.dart';
 import 'package:cahtty/pages/cubit/login_cubit/login_cubit.dart';
 import 'package:cahtty/pages/cubit/login_cubit/login_states.dart';
 import 'package:cahtty/widgets/custom_button.dart';
@@ -23,7 +24,8 @@ class LoginPage extends StatelessWidget {
         if (state is loginLoadinglState) {
           isLoading = true;
         } else if (state is loginSuccessState) {
-          Navigator.pushNamed(context, 'ChatPage');
+          BlocProvider.of<ChatCubit>(context).getMessege();
+          Navigator.pushNamed(context, 'ChatPage',arguments: email);
           isLoading = false;
           SnakkBar(context, 'Success Login!');
         } else if (state is loginFailuerState) {
