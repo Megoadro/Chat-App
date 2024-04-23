@@ -6,7 +6,6 @@ import 'package:cahtty/widgets/custom_button.dart';
 import 'package:cahtty/widgets/custom_text_style.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -106,27 +105,6 @@ class LoginPage extends StatelessWidget {
                         if (formKey.currentState!.validate()) {
                           BlocProvider.of<LoginCubit>(context)
                               .LoginUser(email: email!, password: password!);
-                          // isLoading = true;
-                          // setState(() {});
-                          // try {
-                          //   await LoginUser();
-                          //   //  Navigator.pushNamed(context, 'ChatPage',arguments: email);
-                          //   SnakkBar(context, 'Success Login!');
-                          //   Navigator.pushNamed(context, 'ChatPage',
-                          //       arguments: email);
-                          // } on FirebaseAuthException catch (ex) {
-                          //   if (ex.code == 'user-not-found') {
-                          //     SnakkBar(
-                          //         context, 'No user found for that email.');
-                          //   } else if (ex.code == 'wrong-password') {
-                          //     SnakkBar(context,
-                          //         'Wrong password provided for that user.');
-                          //   }
-                          // } catch (ex) {
-                          //   SnakkBar(context,
-                          //       'OOPS! .. There was an error PLZ Try again');
-                          // }
-                          isLoading = false;
                         }
                       },
                     ),
@@ -159,10 +137,5 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> LoginUser() async {
-    UserCredential user = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email!, password: password!);
   }
 }
