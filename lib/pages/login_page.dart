@@ -24,11 +24,11 @@ class LoginPage extends StatelessWidget {
           isLoading = true;
         } else if (state is loginSuccessState) {
           Navigator.pushNamed(context, 'ChatPage');
-          isLoading = true;
+          isLoading = false;
           SnakkBar(context, 'Success Login!');
         } else if (state is loginFailuerState) {
           SnakkBar(context, state.errMessege);
-          isLoading = true;
+          isLoading = false;
         }
       },
       child: ModalProgressHUD(
